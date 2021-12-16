@@ -317,7 +317,6 @@ int state = 0;
 
 
 void loop() {
-
   M5.update();
   update_sensors();
   detect_fall(fall);
@@ -326,11 +325,9 @@ void loop() {
     state = STAT_ALRT;
   }
   update_time(mytime);
-
   TouchPoint_t pos = M5.Touch.getPressPoint();
 
   switch (state) {
-
     case STAT_DFLT: {
         // M5.update();
         readTime();
@@ -338,6 +335,7 @@ void loop() {
         state = read_UI_def();
       }
       break;
+      
     case STAT_SETT: {
         display_sett();
         state = read_UI_sett();
@@ -359,7 +357,6 @@ void loop() {
       break;
 
     case STAT_TIME: {
-
         display_time(mytime);
         state = read_UI_time();
       }
