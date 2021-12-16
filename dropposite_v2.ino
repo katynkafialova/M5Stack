@@ -129,7 +129,7 @@ void display_sett() {
   M5.Lcd.setCursor(3, 75);
   M5.Lcd.print("Press middle button to go to time settings");
   M5.Lcd.setCursor(3, 140);
-  M5.Lcd.print("Press middle button to go back");
+  M5.Lcd.print("Press right button to go back");
 };
 
 void display_time(RTC_TimeTypeDef & _time) {
