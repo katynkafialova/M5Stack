@@ -10,49 +10,49 @@ edited for the purposes of the Dropposite project
     #define EEPROM_SIZE 8
 #endif
 
-#define CONFIG_I2S_BCK_PIN 12 //Define I2S related ports.  定义I2S相关端口
+#define CONFIG_I2S_BCK_PIN 12 //Define I2S related ports
 #define CONFIG_I2S_LRCK_PIN 0
 #define CONFIG_I2S_DATA_PIN 2
 #define CONFIG_I2S_DATA_IN_PIN 34
 
-#define Speak_I2S_NUMBER I2S_NUM_0  // Define the speaker port.  定义扬声器端口
+#define Speak_I2S_NUMBER I2S_NUM_0  // Define the speaker port
 
-#define MODE_MIC 0  // Define the working mode.  定义工作模式
+#define MODE_MIC 0  // Define the working mode
 #define MODE_SPK 1
 #define DATA_SIZE 1024
 
 
-bool InitI2SSpeakOrMic(int mode){  //Init I2S.  初始化I2S
+bool InitI2SSpeakOrMic(int mode){  //Init I2S
     esp_err_t err = ESP_OK;
 
-    i2s_driver_uninstall(Speak_I2S_NUMBER); // Uninstall the I2S driver.  卸载I2S驱动
+    i2s_driver_uninstall(Speak_I2S_NUMBER); // Uninstall the I2S driver
     i2s_config_t i2s_config = {
-        .mode = (i2s_mode_t)(I2S_MODE_MASTER),  // Set the I2S operating mode.  设置I2S工作模式
-        .sample_rate = 44100, // Set the I2S sampling rate.  设置I2S采样率
-        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT, // Fixed 12-bit stereo MSB.  固定为12位立体声MSB
-        .channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT, // Set the channel format.  设置频道格式
-        .communication_format = I2S_COMM_FORMAT_I2S,  // Set the format of the communication.  设置通讯格式
-        .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1, // Set the interrupt flag.  设置中断的标志
-        .dma_buf_count = 2, //DMA buffer count.  DMA缓冲区计数
-        .dma_buf_len = 128, //DMA buffer length.  DMA缓冲区长度
+        .mode = (i2s_mode_t)(I2S_MODE_MASTER),  // Set the I2S operating mode
+        .sample_rate = 44100, // Set the I2S sampling rate
+        .bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT, // Fixed 12-bit stereo MSB
+        .channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT, // Set the channel format
+        .communication_format = I2S_COMM_FORMAT_I2S,  // Set the format of the communication
+        .intr_alloc_flags = ESP_INTR_FLAG_LEVEL1, // Set the interrupt flag
+        .dma_buf_count = 2, //DMA buffer count
+        .dma_buf_len = 128, //DMA buffer length
     };
     if (mode == MODE_MIC){
         i2s_config.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_PDM);
     }else{
         i2s_config.mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX);
-        i2s_config.use_apll = false;  //I2S clock setup.  I2S时钟设置
-        i2s_config.tx_desc_auto_clear = true; // Enables auto-cleanup descriptors for understreams.  开启欠流自动清除描述符
+        i2s_config.use_apll = false;  //I2S clock setup
+        i2s_config.tx_desc_auto_clear = true; // Enables auto-cleanup descriptors for understreams
     }
-    // Install and drive I2S.  安装并驱动I2S
+    // Install and drive I2S
     err += i2s_driver_install(Speak_I2S_NUMBER, &i2s_config, 0, NULL);
 
     i2s_pin_config_t tx_pin_config;
-    tx_pin_config.bck_io_num = CONFIG_I2S_BCK_PIN;  // Link the BCK to the CONFIG_I2S_BCK_PIN pin. 将BCK链接至CONFIG_I2S_BCK_PIN引脚
+    tx_pin_config.bck_io_num = CONFIG_I2S_BCK_PIN;  // Link the BCK to the CONFIG_I2S_BCK_PIN pin
     tx_pin_config.ws_io_num = CONFIG_I2S_LRCK_PIN;  //          ...
     tx_pin_config.data_out_num = CONFIG_I2S_DATA_PIN;  //       ...
     tx_pin_config.data_in_num = CONFIG_I2S_DATA_IN_PIN; //      ...
-    err += i2s_set_pin(Speak_I2S_NUMBER, &tx_pin_config); // Set the I2S pin number.  设置I2S引脚编号
-    err += i2s_set_clk(Speak_I2S_NUMBER, 44100, I2S_BITS_PER_SAMPLE_16BIT, I2S_CHANNEL_MONO); // Set the clock and bitwidth used by I2S Rx and Tx. 设置I2S RX、Tx使用的时钟和位宽
+    err += i2s_set_pin(Speak_I2S_NUMBER, &tx_pin_config); // Set the I2S pin number
+    err += i2s_set_clk(Speak_I2S_NUMBER, 44100, I2S_BITS_PER_SAMPLE_16BIT, I2S_CHANNEL_MONO); // Set the clock and bitwidth used by I2S Rx and Tx. 
     return true;
 }
 
@@ -62,11 +62,11 @@ the program in the setUp () function will be run, and this part will only be run
 
 void setup_audio(){
   Serial.printf("Starting Speaker...\n");
-  M5.Axp.SetSpkEnable(true);  //Enable speaker power.  启用扬声器电源
-  delay(100); //delay 100ms.  延迟100ms
+  M5.Axp.SetSpkEnable(true);  //Enable speaker power
+  delay(100); //delay 100ms
 
-  if (!EEPROM.begin(EEPROM_SIZE)){  //Request storage of SIZE size(success return 1).  申请SIZE大小的存储(成功返回1)
-     Serial.println("\nFailed to initialise EEPROM!"); //串口输出格式化字符串.  Serial output format string
+  if (!EEPROM.begin(EEPROM_SIZE)){  //Request storage of SIZE size(success return 1).  
+     Serial.println("\nFailed to initialise EEPROM!"); //  Serial output format string
      delay(1000);
   }
 
@@ -102,7 +102,7 @@ size_t play(uint8_t* data_0, size_t data_size){
 }
 
 void vibrate(unsigned int time){
-    M5.Axp.SetLDOEnable(3,true);   //Open the vibration.   开启震动马达
+    M5.Axp.SetLDOEnable(3,true);   //Open the vibration
     delay(time);
     M5.Axp.SetLDOEnable(3,false);
 }
