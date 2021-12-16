@@ -1,3 +1,8 @@
+/*
+  Date: 25-06-21
+  Code written by: Dharmik and corrected by katynkafialova to the project Dropposite
+*/
+
 #include <WiFi.h>         //Including wifi.h library it will take care of all wifi related task
 #include <HTTPClient.h>   //Including HTTPClient.h library to use all api
 
