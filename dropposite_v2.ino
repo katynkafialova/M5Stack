@@ -37,7 +37,7 @@ void  update_sensors() {
 
 #define FALL_DELAY      2000  //Time at which a peak will be detected as a fall
 #define MAX_RUN_DELAY   1000  //Time at which the running condition is reset
-#define MIN_PEAK_DELAY  200    //Minimum time between to high measurements to be considered isolated peaks
+#define MIN_PEAK_DELAY  200   //Minimum time between to high measurements to be considered isolated peaks
 
 #define FALL_THLD       3.0
 
@@ -55,7 +55,7 @@ void  detect_fall(bool & f) {
     M5.Lcd.fillCircle(M5.Lcd.width() - 20, 10, 10, YELLOW);
 
   if (f)
-    return;  // This function will never reset the fall state, do that elesewhere
+    return; 
 
   f = false;
   // Show the peak detection state.
@@ -225,9 +225,9 @@ int read_UI_def() {
   if (M5.BtnA.wasReleased() ) {
     next_state = STAT_SETT;
   } else if (M5.BtnB.wasReleased() ) {
-    // Do somehting
+
   } else if (M5.BtnC.wasReleased() ) {
-    // Do somehting
+
   }
 
 
@@ -293,12 +293,12 @@ int read_UI_wifi() {
   return next_state;
 }
 
-//int read_UI_time(){
-// M5.Lcd.fillScreen(BLACK);
-// set_time();
-// int next_state = STAT_DFLT;
-//  return next_state;
-// }
+int read_UI_time(){
+   M5.Lcd.fillScreen(BLACK);
+   set_time();
+   int next_state = STAT_DFLT;
+   return next_state;
+   }
 
 void setup() {
   M5.begin();
@@ -361,7 +361,7 @@ void loop() {
     case STAT_TIME: {
 
         display_time(mytime);
-        // state = read_UI_time();
+        state = read_UI_time();
       }
       break;
 
