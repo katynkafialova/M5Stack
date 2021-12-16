@@ -1,10 +1,3 @@
-/*
-  Date: 25-06-21
-  Code written by: Dharmik
-  ESP32 sending a message to WhatsApp messenger
-  Find more on www.TechTOnions.com
-*/
-
 #include <WiFi.h>         //Including wifi.h library it will take care of all wifi related task
 #include <HTTPClient.h>   //Including HTTPClient.h library to use all api
 
