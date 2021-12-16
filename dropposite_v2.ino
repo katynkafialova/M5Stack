@@ -8,7 +8,6 @@
 #include "whatsapp.h"
 #include <math.h>
 
-
 #define STAT_DFLT 0
 #define STAT_SETT 1
 #define STAT_ALRT 2
@@ -16,7 +15,6 @@
 #define STAT_TIME 4
 
 #define BACK_COLOR BLACK
-
 
 RTC_TimeTypeDef mytime;
 RTC_TimeTypeDef TimeStruct;
@@ -33,7 +31,6 @@ uint8_t data_0[DATA_SIZE * 100];
 void  update_sensors() {
   M5.IMU.getAccelData(&accX, &accY, &accZ);
 };
-
 
 #define FALL_DELAY      2000  //Time at which a peak will be detected as a fall
 #define MAX_RUN_DELAY   1000  //Time at which the running condition is reset
@@ -104,9 +101,6 @@ void  detect_fall(bool & f) {
     }
   }
 };
-
-
-
 
 void  update_time(RTC_TimeTypeDef & _time) {};
 
@@ -212,7 +206,6 @@ void display_wifi() {
 
 };
 
-
 int read_UI_def() {
   int next_state = STAT_DFLT;
   if (M5.BtnA.wasReleased() ) {
@@ -222,14 +215,11 @@ int read_UI_def() {
   } else if (M5.BtnC.wasReleased() ) {
 
   }
-
-
   return next_state;
 }
 
 int read_UI_sett() {
   int next_state = STAT_SETT;
-
   if (M5.BtnA.wasReleased() ) {
     next_state = STAT_WIFI;
   } else if (M5.BtnB.wasReleased()) {
@@ -238,13 +228,11 @@ int read_UI_sett() {
     next_state = STAT_DFLT;
   }
 
-
   return next_state;
 }
 
 int read_UI_alrt(Button * btns) {
   int next_state = STAT_ALRT;
-
   while (1) {
     M5.update();
     Event& e = M5.Buttons.event;
@@ -252,7 +240,6 @@ int read_UI_alrt(Button * btns) {
     {
       int ok = okay(5); // Ask again after 30 seconds and return 1 if its ok
       if (ok) {
-       
         Serial.printf("Send Ok Message. Next State = %i \n", next_state);
         message_to_whatsapp("There was a small accident of falling, however, based on the response of the patient everything should be okay. We recommend to check up on the patient soon, preferably within next 10 minutes and again in an hour. Have a nice day.");
         next_state = STAT_DFLT;
@@ -275,7 +262,6 @@ int read_UI_alrt(Button * btns) {
       break;
     }
   }
-
   return next_state;
 }
 }
@@ -307,7 +293,6 @@ void setup() {
   Serial.println(WiFi.localIP());
 }
 int state = 0;
-
 
 void loop() {
   M5.update();
