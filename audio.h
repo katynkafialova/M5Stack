@@ -1,14 +1,6 @@
 /*
-*******************************************************************************
-* Copyright (c) 2021 by M5Stack
-*                  Equipped with M5Core2 sample source code
-*                          配套  M5Core2 示例源代码
-* Visit the website for more information：https://docs.m5stack.com/en/core/core2
-* 获取更多资料请访问：https://docs.m5stack.com/zh_CN/core/core2
-*
-* describe：NS4168--I2S power amplifier.  功放示例
-* date：2021/7/21
-*******************************************************************************
+Copyright (c) 2021 by M5Stack
+edited for the purposes of the Dropposite project
 */
 #include <M5Core2.h>
 #include <driver/i2s.h>
