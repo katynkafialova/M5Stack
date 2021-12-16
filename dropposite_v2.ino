@@ -48,12 +48,10 @@ long peak_time = 0;
 
 void  detect_fall(bool & f) {
   float _ACC = sqrt(accX * accX + accY * accY + accZ * accZ);
-
   if (isok)
     M5.Lcd.fillCircle(M5.Lcd.width() - 20, 10, 10, GREEN);
   else
     M5.Lcd.fillCircle(M5.Lcd.width() - 20, 10, 10, YELLOW);
-
   if (f)
     return; 
 
@@ -68,12 +66,10 @@ void  detect_fall(bool & f) {
     } else
       peak_det = false;
 
-
     if (!peak_det && !isok && (peak_delay > FALL_DELAY)) {
       f = true;
       return;
     }
-
 
     if (run_det) {
       isok = true;
@@ -93,7 +89,6 @@ void  detect_fall(bool & f) {
           run_det = false;
         }
       }
-
     }
     else {// !run_det
       if (peak_det) {
@@ -106,8 +101,6 @@ void  detect_fall(bool & f) {
       } else {
         // do nothing with isok
       }
-
-
     }
   }
 };
